@@ -1,0 +1,35 @@
+body { 
+  font-family: Arial, sans-serif; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      font-size: 30px;
+       background-image: url('./imagem/capamatematica.jpg');
+  background-repeat: no-repeat; /* Evita que a imagem se repita */ 
+    }
+
+    h1{
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 50px;
+    text-decoration: underline overline;
+    }
+
+    input, button { 
+      margin-top: 10px; 
+      padding: 10px;
+      border-radius: 5px;
+      border: 2px solid #5a5959;
+    }
+
+    button { 
+      background: rgb(255, 237, 77); 
+      color: black; 
+       box-shadow: 2px 4px 10px rgb(54, 49, 0);
+      font-size: 25px; 
+      cursor: pointer;
+    }
+    
+    button:hover { 
+      background: rgb(245, 222, 15); 
+    }

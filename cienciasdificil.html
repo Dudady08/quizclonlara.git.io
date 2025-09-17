@@ -1,0 +1,181 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./ciencias.css">
+  <title>Quiz - Quem sou eu?</title>
+</head>
+<body>
+  <div class="quiz-box">
+    <h1>Quem sou eu?</h1>
+    <div id="dicas" class="dicas">Clique em "Começar" para iniciar o desafio!</div>
+
+    <div class="input-group">
+      <input type="text" id="resposta" placeholder="Digite sua resposta">
+      <button class="btn" onclick="verificar()">Responder</button>
+    </div>
+    
+    <div class="button-group">
+        <a href="./quiz.html" class="btn">Início</a>
+        <button id="btnIniciar" class="btn" onclick="proximaPergunta()">Começar</button>
+    </div>
+
+    <p id="resultado" class="resultado"></p>
+  </div>
+
+  <script>
+    // --- Banco de perguntas ---
+    const perguntas = [
+      {
+        dicas: [
+          "Dica 1: Estou presente em todos os corpos que têm massa.",
+          "Dica 2: Sou uma das quatro forças fundamentais do universo.",
+          "Dica 3: Mantenho a Lua orbitando a Terra.",
+          "Dica 4: Sou responsável por manter os pés no chão.",
+          "Dica 5: Faço todas as coisas caírem."
+        ],
+        resposta: "Gravidade"
+      },
+      {
+        dicas: [
+          "Dica 1: Estou presente em todos os corpos que têm massa.",
+          "Dica 2: Sou uma das quatro forças fundamentais do universo.",
+          "Dica 3: Mantenho a Lua orbitando a Terra.",
+          "Dica 4: Faço todas as coisas caírem.",
+          "Dica 5: Palavra: _ r a _ i d _ _ e"
+        ],
+        resposta: "Gravidade"
+      },
+      {
+        dicas: [
+          "Dica 1: Sou extremamente pequeno e não posso ser visto a olho nu.",
+          "Dica 2: Fui descrito por diferentes modelos ao longo da história.",
+          "Dica 3: Tenho prótons, nêutrons e elétrons.",
+          "Dica 4: Sou a unidade básica da matéria.",
+          "Dica 5: Palavra: á _ _ m _"
+        ],
+        resposta: "Átomo"
+      },
+      {
+        dicas: [
+          "Dica 1: Posso conter bilhões de estrelas.",
+          "Dica 2: Tenho formas como espiral, elíptica ou irregular.",
+          "Dica 3: A Via Láctea é um exemplo de mim.",
+          "Dica 4: Conto com planetas, poeira cósmica e buracos negros.",
+          "Dica 5: Palavra: G _ _ á x _ a"
+        ],
+        resposta: "Galáxia"
+      },
+      {
+        dicas: [
+          "Dica 1: Posso ser medida em diferentes escalas.",
+          "Dica 2: Estou ligada à energia cinética das partículas.",
+          "Dica 3: Posso ser medida em graus Celsius, Fahrenheit ou Kelvin.",
+          "Dica 4: Determino se algo está quente ou frio.",
+          "Dica 5: Palavra: _ e m _ _ r _ _ u r _"
+        ],
+        resposta: "Temperatura",
+      },
+      {
+        dicas: [
+          "Dica 1: Sou um organismo microscópico unicelular.",
+          "Dica 2: Posso viver em ambientes extremos.",
+          "Dica 3: Algumas de mim causam doenças.",
+          "Dica 4: Outras ajudam no processo de decomposição ou digestão.",
+          "Dica 5: Palavra: _ a c _ _ r i _"
+        ],
+        resposta: "Bactéria"
+      }
+    ];
+
+    // --- Elementos do HTML ---
+    const btnIniciar = document.getElementById('btnIniciar');
+    const dicasEl = document.getElementById("dicas");
+    const resultadoEl = document.getElementById("resultado");
+    const respostaInput = document.getElementById("resposta");
+
+    // --- Variáveis do jogo ---
+    let perguntaAtual = 0;
+    let dicaAtual = 0;
+    let tentativas = 0;
+    let jogoAtivo = false;
+
+    function proximaPergunta() {
+      jogoAtivo = true;
+      btnIniciar.style.display = 'none'; // esconde o botão
+
+      // reinicia variáveis
+      dicaAtual = 0;
+      tentativas = 0;
+
+      mostrarDica();
+    }
+
+    function mostrarDica() {
+      dicasEl.innerHTML = perguntas[perguntaAtual].dicas.slice(0, dicaAtual + 1).join("<br>");
+      resultadoEl.textContent = "";
+      respostaInput.value = "";
+      respostaInput.focus();
+    }
+
+    function verificar() {
+      if (!jogoAtivo) {
+        resultadoEl.textContent = "Clique em 'Próxima Pergunta' para iniciar!";
+        return;
+      }
+
+      const respostaUsuario = respostaInput.value.trim();
+      if (!respostaUsuario) {
+        resultadoEl.textContent = "Digite algo para responder!";
+        return;
+      }
+
+      const respostaCorreta = perguntas[perguntaAtual].resposta;
+
+      if (respostaUsuario.toLowerCase() === respostaCorreta.toLowerCase()) {
+        resultadoEl.textContent = "Parabéns! Você acertou! Era " + respostaCorreta + "!🎉";
+         resultadoEl.className = "acerto";
+        jogoAtivo = false;
+        btnIniciar.style.display = 'inline-block'; // botão reaparece
+        if (perguntaAtual < perguntas.length - 1) {
+          btnIniciar.textContent = "Próxima Pergunta";
+        } else {
+          btnIniciar.textContent = "Fim do Quiz!";
+          btnIniciar.disabled = true;
+        }
+      } else {
+        tentativas++;
+        if (tentativas < 5 && dicaAtual < perguntas[perguntaAtual].dicas.length - 1) {
+          dicaAtual++;
+          mostrarDica();
+          resultadoEl.textContent = "Ops! Resposta errada. Veja a próxima dica! 😔";
+           resultadoEl.className = "erro";
+        } else {
+          resultadoEl.textContent = "Fim de jogo! A resposta era: " + respostaCorreta;
+          jogoAtivo = false;
+          btnIniciar.style.display = 'inline-block'; // botão reaparece
+          if (perguntaAtual < perguntas.length - 1) {
+            btnIniciar.textContent = "Próxima Pergunta";
+          } else {
+            btnIniciar.textContent = "Fim do jogo!";
+            btnIniciar.disabled = true;
+          }
+        }
+      }
+      respostaInput.value = "";
+      respostaInput.focus();
+    }
+
+    // Quando clicar no botão "Próxima Pergunta"
+    btnIniciar.addEventListener("click", function() {
+      if (perguntaAtual < perguntas.length - 1) {
+        perguntaAtual++;
+        dicaAtual = 0;
+        tentativas = 0;
+        proximaPergunta();
+      }
+    });
+  </script>
+</body>
+</html>

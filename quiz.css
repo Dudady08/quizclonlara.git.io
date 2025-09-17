@@ -1,0 +1,62 @@
+body{
+    background-image: url('./imagem/capaquiz.jpg');
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+      background-size: cover; /* Ajusta a imagem para cobrir o fundo */
+}
+
+h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 45px;
+    text-decoration: underline overline;
+}
+
+p {
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+samp{
+  font-weight: bold;
+}
+      
+h2 {
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    background: rgb(255, 240, 102);
+    line-height: 1.5;
+    gap: 20px;
+    padding: 20px 30px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-left: 50px;
+     box-shadow: 4px 6px 20px rgb(54, 49, 0);
+     border: 2px solid #5a5959;
+}
+
+h2 a {
+   text-decoration: none;
+   color: black;
+}
+
+h2 {
+background: rgb(255, 237, 77); 
+      cursor: pointer; 
+}
+
+.botao {
+    display: flex;
+    justify-content: center;
+}
+
+.botao :hover {
+background: rgb(245, 222, 15);
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+    width: 290px;
+}

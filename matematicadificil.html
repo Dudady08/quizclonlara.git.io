@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./matematica.css">
+  <link rel="icon" href="./imagem/matematica.svg" type="image/svg+xml">
+  <title>Quiz de Matemática</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Resolva a Conta</h1>
+    <p id="question"></p>
+    <input type="number" id="userAnswer" placeholder="Digite sua resposta">
+    <button onclick="checkAnswer()" id="checkBtn">Verificar</button>
+    <div class="result" id="result"></div>
+
+    <!-- Botão de voltar sempre visível -->
+    <div class="nav-buttons">
+      <button onclick="goHome()">Início</button>
+    </div>
+
+
+  <script>
+    // Lista de contas e respostas
+    const questions = [
+      { text: "Quanto é 5 - 5 x 5?", answer: 20 },
+      { text: "Quanto é 7 + 7 ÷ 7 + 7 x 7 - 7?", answer: 50 },
+      { text: "Quanto é 12 ÷ 3 × 2 + 2?", answer: 10 },
+      { text: "Quanto é 3 x 2 ÷ 3 x 2?", answer: 4},
+      { text: "Quanto é 3 x 2 ÷ 2 x 3?", answer: 9},
+      { text: "Quanto é 3 + 3 x 3?", answer: 12}
+    ];
+
+    let currentQuestion = 0;
+
+    const questionEl = document.getElementById("question");
+    const resultDiv = document.getElementById("result");
+    const userAnswerEl = document.getElementById("userAnswer");
+    const checkBtn = document.getElementById("checkBtn");
+
+    // Mostrar a primeira pergunta
+    loadQuestion();
+
+    function loadQuestion() {
+      if (currentQuestion < questions.length) {
+        questionEl.textContent = questions[currentQuestion].text;
+        userAnswerEl.value = "";
+        resultDiv.textContent = "";
+      } else {
+        questionEl.textContent = "Parabéns! Você concluiu todas as contas! 🎉";
+        userAnswerEl.style.display = "none";
+        checkBtn.style.display = "none";
+      }
+    }
+
+    function checkAnswer() {
+      const correctAnswer = questions[currentQuestion].answer;
+      const userAnswer = parseInt(userAnswerEl.value);
+
+      if (userAnswer === correctAnswer) {
+        resultDiv.textContent = "Parabéns! Você acertou! 🎉";
+        resultDiv.style.color = "green";
+        currentQuestion++;
+        setTimeout(loadQuestion, 1200); // Muda de pergunta após 1,2s
+      } else {
+        resultDiv.textContent = "Ops! Resposta errada. Tente novamente. 😔";
+        resultDiv.style.color = "red";
+      }
+    }
+
+    function goHome() {
+      window.location.href = "quiz.html"; // Altere o nome do arquivo se for diferente
+    }
+  </script>
+</body>
+</html>

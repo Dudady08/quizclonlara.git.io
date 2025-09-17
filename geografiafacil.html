@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./geografia.css">
+  <link rel="icon" href="./imagem/geografiaglobo.svg" type="image/svg+xml">
+  <title>Quiz de Bandeiras</title>
+</head>
+<body>
+
+ <h1>Descubra a bandeira</h1>
+<img id="flag" src="" alt="Bandeira">
+<div class="controles-wapper">
+
+<!-- Bloco de input + enviar -->
+<div class="resposta-container">
+  <input type="text" id="resposta" placeholder="Digite o nome do país">
+  <button onclick="verificarResposta()">Enviar</button>
+</div>
+<div id="resultado"></div>
+<!-- Botão de início sempre embaixo -->
+<a id="home-btn" href="./quiz.html">Início</a>
+</div>
+
+<!-- Mensagens de resultado/dicas -->
+
+<div id="dicas"></div>
+  <script>
+      const quiz = [
+    {
+      img: "https://flagcdn.com/w320/br.png",
+      resposta: "Brasil",
+      dicas: ["Fica na América do Sul", "Sua capital é Brasília", "O idioma é o português"]
+    },
+    {
+      img: "https://flagcdn.com/w320/fr.png",
+      resposta: "França",
+      dicas: ["País da Torre Eiffel", "Sua capital é Paris", "O idioma é o francês"]
+    },
+    {
+      img: "https://flagcdn.com/w320/jp.png",
+      resposta: "Japão",
+      dicas: ["É um arquipélago na Ásia", "País do Monte Fuji", "Sua capital é Tóquio"]
+    },
+    {
+      img: "https://flagcdn.com/w320/us.png",
+      resposta: "Estados Unidos",
+      dicas: ["Fica na América do Norte", "Sua bandeira tem 50 estrelas", "A Estátua da Liberdade fica lá"]
+    },
+    {
+      img: "https://flagcdn.com/w320/ar.png",
+      resposta: "Argentina",
+      dicas: ["Nosso vizinho na América do Sul", "País do Tango", "Sua capital é Buenos Aires"]
+    },
+    {
+      img: "https://flagcdn.com/w320/ru.png",
+      resposta: "Rússia",
+      dicas: ["É o maior país do mundo em área", "Fica em dois continentes (Europa e Ásia)", "Sua capital é Moscou"]
+    },
+    {
+      img: "https://flagcdn.com/w320/it.png",
+      resposta: "Itália",
+      dicas: ["País europeu em formato de bota", "Famoso pelo Coliseu de Roma", "Berço da pizza e do macarrão"]
+    },
+    {
+      img: "https://flagcdn.com/w320/gb.png",
+      resposta: "Reino Unido",
+      dicas: ["É uma nação insular na Europa", "Formado por Inglaterra, Escócia, Gales e Irlanda do Norte", "Sua capital é Londres"]
+    },
+    {
+      img: "https://flagcdn.com/w320/il.png",
+      resposta: "Israel",
+      dicas: ["País localizado no Oriente Médio", "Banhado pelo Mar Mediterrâneo", "Sua capital é Jerusalém"]
+    },
+    {
+      img: "https://flagcdn.com/w320/kr.png",
+      resposta: "Coreia do Sul",
+      dicas: ["País do Leste Asiático", "Conhecido mundialmente pelo K-Pop", "Sua capital é Seul"]
+    }
+  ];
+
+    let indice = 0;
+    let tentativas = 0;
+
+    const flag = document.getElementById("flag");
+    const dicasDiv = document.getElementById("dicas");
+    const resultado = document.getElementById("resultado");
+    const respostaInput = document.getElementById("resposta");
+
+    function carregarPergunta() {
+      flag.src = quiz[indice].img;
+      respostaInput.value = "";
+      dicasDiv.innerHTML = "";
+      resultado.textContent = "";
+      resultado.className = "";
+      tentativas = 0;
+    }
+
+    function verificarResposta() {
+      const resposta = respostaInput.value.trim();
+      if (resposta.toLowerCase() === quiz[indice].resposta.toLowerCase()) {
+        resultado.textContent = "Parabéns! Você acertou! 🎉";
+        resultado.className = "acerto";
+        setTimeout(() => {
+          indice++;
+          if (indice < quiz.length) {
+            carregarPergunta();
+          } else {
+            resultado.textContent = "Parabéns! Você concluiu todas as perguntas! 🎉";
+          }
+        }, 1500);
+      } else {
+        resultado.className = "erro";
+        if (tentativas < 3) {
+          resultado.textContent = "Ops! Resposta errada. Tente novamente. 😔";
+          dicasDiv.innerHTML += `<p> Dica: ${quiz[indice].dicas[tentativas]}</p>`;
+          tentativas++;
+        } else {
+          resultado.textContent = `O correto era: ${quiz[indice].resposta}`;
+          setTimeout(() => {
+            indice++;
+            if (indice < quiz.length) {
+              carregarPergunta();
+            } else {
+              resultado.textContent = "Fim do jogo!";
+            }
+          }, 2000);
+        }
+      }
+    }
+
+    carregarPergunta();
+  </script>
+
+</body>
+</html>

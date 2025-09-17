@@ -1,0 +1,97 @@
+body {
+      font-family: Arial, sans-serif;
+      background-image: url("./imagem/capahistoria.jpg");
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+      background-size: cover; /* Ajusta a imagem para cobrir o fundo */
+      background-position: center; 
+    }
+
+    h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 50px;
+    text-decoration: underline overline;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    #question {
+        text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    margin-bottom: 25px;
+    } 
+
+.option {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  text-align: center;
+  margin: 10px auto;           /* centraliza */
+  background: rgb(255, 237, 77);
+  width: 540px;                /* largura fixa igual para todos */
+  padding: 10px;               /* altura do botão */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.5s ease; /* efeito suave */
+  box-shadow: 4px 6px 20px rgb(54, 49, 0);
+  border: 2px solid #5a5959;
+}
+
+
+.option:hover {
+  background: rgb(245, 222, 15); /* cor diferente no hover */
+}
+
+    .correct {
+      background: #8bc34a !important;
+      color: black;
+    }
+    .wrong {
+      background: #f44336 !important;
+      color: black;
+    }
+
+/* container dos botões */
+.button {
+  display: flex;
+  justify-content: center; /* centraliza os filhos no eixo horizontal */
+  gap: 20px;              /* espaço entre botões, se houver mais */
+  flex-wrap: wrap;        /* permite quebrar linha se faltar espaço */
+}
+
+/* botão home */
+#home-btn {
+  background: rgb(255, 237, 77);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  box-shadow: 4px 6px 20px rgb(54, 49, 0);
+  border: 2px solid #5a5959;
+  cursor: pointer;
+  /* o segredo: centralizar sozinho */
+  margin: 20px auto 0 auto; 
+  display: block;
+}
+
+#home-btn:hover {
+  background: rgb(245, 222, 15);
+}
+
+ #message {
+      margin-top: 10px;
+      font-weight: bold;
+      color: red;
+      font-family: Arial, sans-serif;
+      font-size: 26px;
+      margin: 20px 0 0 394px;
+    }
+        .correct { background: #8bc34a !important; color: black; }
+        .wrong { background: #f44336 !important; color: black; }
+        #message { margin-top: 10px; font-weight: bold; }
+      

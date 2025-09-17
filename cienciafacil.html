@@ -1,0 +1,181 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./ciencias.css">
+  <title>Quiz - Quem sou eu?</title>
+</head>
+<body>
+  <div class="quiz-box">
+    <h1>Quem sou eu?</h1>
+    <div id="dicas" class="dicas">Clique em "Começar" para iniciar o desafio!</div>
+
+    <div class="input-group">
+      <input type="text" id="resposta" placeholder="Digite sua resposta">
+      <button class="btn" onclick="verificar()">Responder</button>
+    </div>
+    
+    <div class="button-group">
+        <a href="./quiz.html" class="btn">Início</a>
+        <button id="btnIniciar" class="btn" onclick="proximaPergunta()">Começar</button>
+    </div>
+
+    <p id="resultado" class="resultado"></p>
+  </div>
+
+  <script>
+    // --- Banco de perguntas ---
+    const perguntas = [
+      {
+        dicas: [
+          "Dica 1: Estou presente em todos os corpos que têm massa.",
+          "Dica 2: Sou uma das quatro forças fundamentais do universo.",
+          "Dica 3: Mantenho a Lua orbitando a Terra.",
+          "Dica 4: Sou responsável por manter os pés no chão.",
+          "Dica 5: Faço todas as coisas caírem."
+        ],
+        resposta: "Gravidade"
+      },
+      {
+        dicas: [
+          "Dica 1: Sou feito principalmente de gases.",
+          "Dica 2: Sou uma esfera gigante em constante explosão.",
+          "Dica 3: Estou no centro de um sistema.",
+          "Dica 4: Influencio o dia e a noite.",
+          "Dica 5: Palavra: S _ _"
+        ],
+        resposta: "Sol"
+      },
+      {
+        dicas: [
+          "Dica 1: Posso mudar de estado físico.",
+          "Dica 2: Não tenho cor, cheiro ou sabor.",
+          "Dica 3: Cubro a maior parte da superfície do planeta.",
+          "Dica 4: Sou essencial para todos os seres vivos.",
+          "Dica 5: Palavra: Á _ _ a"
+        ],
+        resposta: "Água"
+      },
+      {
+        dicas: [
+          "Dica 1: Não tenho luz própria.",
+          "Dica 2: Estou sempre acompanhando a Terra.",
+          "Dica 3: Influencio o movimento das marés.",
+          "Dica 4: Apareço em fases diferentes no céu.",
+          "Dica 5: Palavra: L _ _"
+        ],
+        resposta: "Lua"
+      },
+      {
+        dicas: [
+          "Dica 1: Sou formado por bilhões de células chamadas neurônios.",
+          "Dica 2: Trabalho com sinais elétricos e químicos.",
+          "Dica 3: Controlo os movimentos do corpo.",
+          "Dica 4: Também sou responsável pelos pensamentos.",
+          "Dica 5: Palavra: _ é r _ _ r o"
+        ],
+        resposta: "Cérebro"
+      },
+      {
+        dicas: [
+          "Dica 1: Preciso de luz para viver.",
+          "Dica 2: Transformo energia do Sol em alimento.",
+          "Dica 3: Produzo oxigênio para o ambiente.",
+          "Dica 4: Posso dar frutos, flores ou sementes.",
+          "Dica 5: Palavra: P _ a n _ A"
+        ],
+        resposta: "Planta"
+      }
+    ];
+
+    // --- Elementos do HTML ---
+    const btnIniciar = document.getElementById('btnIniciar');
+    const dicasEl = document.getElementById("dicas");
+    const resultadoEl = document.getElementById("resultado");
+    const respostaInput = document.getElementById("resposta");
+
+    // --- Variáveis do jogo ---
+    let perguntaAtual = 0;
+    let dicaAtual = 0;
+    let tentativas = 0;
+    let jogoAtivo = false;
+
+    function proximaPergunta() {
+      jogoAtivo = true;
+      btnIniciar.style.display = 'none'; // esconde o botão
+
+      // reinicia variáveis
+      dicaAtual = 0;
+      tentativas = 0;
+
+      mostrarDica();
+    }
+
+    function mostrarDica() {
+      dicasEl.innerHTML = perguntas[perguntaAtual].dicas.slice(0, dicaAtual + 1).join("<br>");
+      resultadoEl.textContent = "";
+      respostaInput.value = "";
+      respostaInput.focus();
+    }
+
+    function verificar() {
+      if (!jogoAtivo) {
+        resultadoEl.textContent = "Clique em 'Próxima Pergunta' para iniciar!";
+        return;
+      }
+
+      const respostaUsuario = respostaInput.value.trim();
+      if (!respostaUsuario) {
+        resultadoEl.textContent = "Digite algo para responder!";
+        return;
+      }
+
+      const respostaCorreta = perguntas[perguntaAtual].resposta;
+
+      if (respostaUsuario.toLowerCase() === respostaCorreta.toLowerCase()) {
+        resultadoEl.textContent = "Parabéns! Você acertou! Era " + respostaCorreta + "!🎉";
+         resultadoEl.className = "acerto";
+        jogoAtivo = false;
+        btnIniciar.style.display = 'inline-block'; // botão reaparece
+        if (perguntaAtual < perguntas.length - 1) {
+          btnIniciar.textContent = "Próxima Pergunta";
+        } else {
+          btnIniciar.textContent = "Fim do jogo!";
+          btnIniciar.disabled = true;
+        }
+      } else {
+        tentativas++;
+        if (tentativas < 5 && dicaAtual < perguntas[perguntaAtual].dicas.length - 1) {
+          dicaAtual++;
+          mostrarDica();
+          resultadoEl.textContent = "Ops! Resposta errada. Veja a próxima dica! 😔";
+           resultadoEl.className = "erro";
+        } else {
+          resultadoEl.textContent = "Fim de jogo! A resposta era: " + respostaCorreta;
+          jogoAtivo = false;
+          btnIniciar.style.display = 'inline-block'; // botão reaparece
+          if (perguntaAtual < perguntas.length - 1) {
+            btnIniciar.textContent = "Próxima Pergunta";
+          } else {
+            btnIniciar.textContent = "Fim do Quiz!";
+            btnIniciar.disabled = true;
+          }
+        }
+      }
+      respostaInput.value = "";
+      respostaInput.focus();
+    }
+
+    // Quando clicar no botão "Próxima Pergunta"
+    btnIniciar.addEventListener("click", function() {
+      if (perguntaAtual < perguntas.length - 1) {
+        perguntaAtual++;
+        dicaAtual = 0;
+        tentativas = 0;
+        proximaPergunta();
+      }
+    });
+  </script>
+</body>
+</html>

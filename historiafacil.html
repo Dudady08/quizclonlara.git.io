@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Feira de Ciência</title>
+    <link rel="stylesheet" href="./historia.css">
+    <link rel="icon" href="./imagem/historia.svg" type="image/svg+xml">
+</head>
+<body>
+    <h1>Responda as Perguntas</h1>
+  <div class="quiz-container">
+    <h2 id="question">Pergunta aqui</h2>
+    <div id="options"></div>
+    <p id="message"></p>
+    <div class="botao">
+    <button id="home-btn" onclick="window.location.href='quiz.html'">Início</button>
+  </div>
+</div>
+
+  <script>
+    const quiz = [
+      {
+        question: "Quem foi o famoso cientista que criou a teoria da relatividade?",
+        options: ["Thomas Edison", "Albert Einstein", "Nikola Tesla", "Isaac Newton"],
+        answer: 1
+      },
+      {
+        question: "Em que país nasceu Napoleão Bonaparte?",
+        options: ["Inglaterra", "Alemanha", "França", "Italia"],
+        answer: 2
+      },
+      {
+        question: "Qual era o nome do muro que dividia a Alemanha até 1989?",
+        options: ["A Grande Muralha", "Muro de Divisão", "Muro de Munique", "Muro de Berlim"],
+        answer: 3
+      },
+       {
+        question: "Quem pintou a Mona Lisa?",
+        options: ["Francisco de Goya", "Vincent van Gogh", "Leonardo da Vinci", "Michelangelo"],
+        answer: 2
+      },
+       {
+        question: "Qual foi o navio que afundou em 1912 após bater em um iceberg?",
+        options: ["Titanic", "Piratas do Caribe", "Navio do Barba Negra", "Golden Hind"],
+        answer: 0
+      }
+    ];
+
+    let currentQuestion = 0;
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const messageEl = document.getElementById("message");
+    const homeBtn = document.getElementById("home-btn");
+
+    function showQuestion() {
+      let q = quiz[currentQuestion];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = "";
+      messageEl.textContent = "";
+
+      q.options.forEach((opt, i) => {
+        let btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.classList.add("option");
+        btn.onclick = () => checkAnswer(i, btn);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(i, btn) {
+      let q = quiz[currentQuestion];
+      let options = document.querySelectorAll(".option");
+
+      if (i === q.answer) {
+        btn.classList.add("correct");
+        options.forEach(o => o.disabled = true);
+        messageEl.textContent = "Parabéns! Você acertou! 🎉";
+        messageEl.style.color = "green";
+
+        setTimeout(() => nextQuestion(), 1000); // vai para a próxima pergunta automaticamente
+      } else {
+        btn.classList.add("wrong");
+        btn.disabled = true;
+        messageEl.textContent = "Ops! Resposta errada. Tente novamente. 😔";
+        messageEl.style.color = "red";
+      }
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < quiz.length) {
+        showQuestion();
+      } else {
+        questionEl.textContent = "Parabéns! Você concluiu todas as perguntas! 🎉";
+        optionsEl.innerHTML = "";
+        messageEl.textContent = "";
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>

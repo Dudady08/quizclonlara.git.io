@@ -1,0 +1,98 @@
+body {
+    background-image: url('./imagem/capageografia.jpg');
+background-repeat: no-repeat; /* Evita a repetição da imagem */
+   
+}
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+       display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-family: Arial, sans-serif;
+    font-size: 50px;
+    text-decoration: underline overline;
+    }
+
+   /* container input + enviar lado a lado */
+.resposta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* espaço entre input e botão */
+  margin-top: 20px;
+  
+}
+
+/* input */
+input {
+  padding: 10px;
+  width: 220px;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* botão enviar */
+.resposta-container button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: rgb(255, 237, 77);
+  border: 2px solid #5a5959;
+  box-shadow: 4px 6px 20px rgb(54, 49, 0);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.controles-wapper {
+ display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+   margin: auto;
+}
+
+.resposta-container button:hover {
+  background: rgb(245, 222, 15);
+}
+
+/* resultado e dicas */
+#resultado {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.acerto { color: green; }
+.erro { color: red; }
+
+#dicas {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* botão de início sempre embaixo */
+#home-btn {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    background: rgb(255, 240, 102);
+    line-height: 1.5;
+    gap: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+     box-shadow: 4px 6px 20px rgb(54, 49, 0);
+     border: 2px solid #5a5959;
+     text-decoration: none;
+     color: black;
+     margin-top: 10px;
+}
+
+#home-btn:hover {
+  background: rgb(245, 222, 15);
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz de Português</title>
+<link rel="stylesheet" href="./portugues.css">
+<link rel="icon" href="./imagem/português.svg" type="image/svg+xml">
+</head>
+<body>
+  <div id="quiz-container">
+    <h1>Qual é o plural?</h1>
+    <div id="pergunta">Clique em "Começar" para iniciar!</div>
+
+    <!-- Linha com input e botão Responder -->
+    <div class="linha">
+      <input type="text" id="resposta" placeholder="Digite sua resposta">
+      <button class="btn" onclick="verificar()">Responder</button>
+    </div>
+
+    <p id="resultado"></p>
+
+    <!-- Linha com botões Início e Próximo -->
+     <div class="button-group">
+      <button class="btn" onclick="voltarInicio()">Início</button>
+      <button class="btn" id="btnIniciar">Começar</button>
+    </div>
+  </div>
+
+  <script>
+    // --- Banco de perguntas ---
+    const perguntas = [
+      { pergunta: "Qual é o plural de 'Flor'?", resposta: "Flores"  },
+      { pergunta: "Qual é o plural de 'Papel'?", resposta: "Papéis"  },
+      { pergunta: "Qual é o plural de 'Animal'?", resposta: "Animais"  },
+      { pergunta: "Qual é o plural de 'Pastel'?", resposta: "Pastéis" },
+      { pergunta: "Qual é o plural de 'Livro'?", resposta: "Livros"  }
+    ];
+
+    // --- Elementos do HTML ---
+    const btnIniciar = document.getElementById('btnIniciar');
+    const perguntaEl = document.getElementById("pergunta");
+    const resultadoEl = document.getElementById("resultado");
+    const respostaInput = document.getElementById("resposta");
+
+    // --- Variáveis do jogo ---
+    let perguntaAtual = 0;
+    let jogoAtivo = false;
+
+    function proximaPergunta() {
+      jogoAtivo = true;
+      btnIniciar.style.display = 'none';
+
+      resultadoEl.textContent = "";
+      respostaInput.value = "";
+      respostaInput.focus();
+
+      perguntaEl.textContent = perguntas[perguntaAtual].pergunta;
+    }
+
+    function verificar() {
+      if (!jogoAtivo) {
+        resultadoEl.textContent = "Clique em 'Começar' para iniciar!";
+        return;
+      }
+
+      const respostaUsuario = respostaInput.value.trim();
+      if (!respostaUsuario) {
+        resultadoEl.textContent = "Digite algo para responder!";
+        return;
+      }
+
+      const respostaCorreta = perguntas[perguntaAtual].resposta;
+
+      if (respostaUsuario.toLowerCase() === respostaCorreta.toLowerCase()) {
+        resultadoEl.textContent = "Parabéns! Você acertou! Era " + respostaCorreta + "! 🎉";
+        resultadoEl.className = "acerto";
+        jogoAtivo = false;
+        btnIniciar.style.display = 'inline-block';
+        if (perguntaAtual < perguntas.length - 1) {
+          btnIniciar.textContent = "Próximo";
+        } else {
+          btnIniciar.textContent = "Fim do Quiz!";
+          btnIniciar.disabled = true;
+        }
+      } else {
+        resultadoEl.textContent = "Ops! Resposta errada. A resposta correta era: " + respostaCorreta;
+        resultadoEl.className = "erro";
+        jogoAtivo = false;
+        btnIniciar.style.display = 'inline-block';
+        if (perguntaAtual < perguntas.length - 1) {
+          btnIniciar.textContent = "Próximo";
+        } else {
+          btnIniciar.textContent = "Fim do jogo!";
+          btnIniciar.disabled = true;
+        }
+      }
+
+      respostaInput.value = "";
+    }
+
+    btnIniciar.addEventListener("click", function() {
+      if (perguntaAtual < perguntas.length - 1) {
+        perguntaAtual++;
+        proximaPergunta();
+      } else if (!jogoAtivo) {
+        proximaPergunta();
+      }
+    });
+
+    // Função para voltar ao início
+    function voltarInicio() {
+      window.location.href = "quiz.html"; // Troque pelo nome da sua página inicial
+    }
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,76 @@
+body {
+    background-image: url('./imagem/capaportugues.jpg');
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: Arial, sans-serif;
+    font-size: 50px;
+    text-decoration: underline overline;
+    }
+
+    #pergunta {
+      margin: 20px 0;
+      font-size: 20px;
+      color: black;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+   .acerto {
+       color: green; 
+       font-weight: bold;
+       font-size: 20px;
+      }
+
+.erro {
+   color: red; 
+   font-weight: bold;
+   font-size: 20px;
+  }
+
+.button-group {
+  display: flex;
+      gap: 10px; 
+      margin-bottom: 10px;
+    justify-content: flex-start;
+}
+
+
+    input {
+      padding: 15px;
+      font-size: 18px;
+      width: 300px;
+      border-radius: 8px;
+      border: 2px solid #333;
+      margin-right: 10px;
+    }
+
+    .btn {
+      padding: 15px 25px;
+      border-radius: 5px;
+      background-color: #ffeb3b; 
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s, opacity 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 4px 6px 20px rgb(54, 49, 0);
+     border: 2px solid #5a5959;
+    }
+
+    .btn:hover {
+      background: rgb(245, 222, 15);
+    }
+

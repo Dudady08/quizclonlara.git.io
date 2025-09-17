@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./geografia.css">
+  <link rel="icon" href="./imagem/geografiaglobo.svg" type="image/svg+xml">
+  <title>Quiz de Bandeiras</title>
+</head>
+<body>
+
+ <h1>Descubra a bandeira</h1>
+<img id="flag" src="" alt="Bandeira">
+<div class="controles-wapper">
+
+<!-- Bloco de input + enviar -->
+<div class="resposta-container">
+  <input type="text" id="resposta" placeholder="Digite o nome do país">
+  <button onclick="verificarResposta()">Enviar</button>
+</div>
+<div id="resultado"></div>
+<!-- Botão de início sempre embaixo -->
+<a id="home-btn" href="./quiz.html">Início</a>
+</div>
+
+<!-- Mensagens de resultado/dicas -->
+
+<div id="dicas"></div>
+  <script>
+      const quiz = [
+  {
+    img: "https://flagcdn.com/w320/au.png",
+    resposta: "Austrália",
+    dicas: ["É um país que também é um continente", "Famoso por seus cangurus e coalas", "Sua capital é Camberra"]
+  },
+  {
+    img: "https://flagcdn.com/w320/co.png",
+    resposta: "Colômbia",
+    dicas: ["País sul-americano famoso por seu café", "Faz fronteira com o Brasil", "Sua capital é Bogotá"]
+  },
+  {
+    img: "https://flagcdn.com/w320/bo.png",
+    resposta: "Bolívia",
+    dicas: ["País na América do Sul sem saída para o mar", "Abriga o maior deserto de sal do mundo (Salar de Uyuni)", "Sua capital constitucional é Sucre"]
+  },
+  {
+    img: "https://flagcdn.com/w320/gb-sct.png",
+    resposta: "Escócia",
+    dicas: ["Faz parte do Reino Unido", "Famosa pelas gaitas de fole e pelo Lago Ness", "Sua capital é Edimburgo"]
+  },
+    {
+    img: "https://flagcdn.com/w320/nz.png",
+    resposta: "Nova Zelândia",
+    dicas: ["País da Oceania, famoso pela dança 'Haka'", "As trilogias 'O Senhor dos Anéis' e 'O Hobbit' foram filmadas lá", "Sua capital é Wellington"]
+  },
+  {
+    img: "https://flagcdn.com/w320/gr.png",
+    resposta: "Grécia",
+    dicas: ["País europeu, berço da civilização ocidental", "Famoso por suas ilhas e pelo Partenon", "Sua capital é Atenas"]
+  },
+  {
+    img: "https://flagcdn.com/w320/id.png",
+    resposta: "Indonésia",
+    dicas: ["É o maior arquipélago do mundo", "Localizado no Sudeste Asiático", "A famosa ilha de Bali faz parte de seu território"]
+  },
+  {
+    img: "https://flagcdn.com/w320/et.png",
+    resposta: "Etiópia",
+    dicas: ["País africano considerado o berço do café", "É uma das nações mais antigas do mundo", "Sua capital é Adis Abeba"]
+  },
+  {
+    img: "https://flagcdn.com/w320/iq.png",
+    resposta: "Iraque",
+    dicas: ["País do Oriente Médio, antiga Mesopotâmia", "É banhado pelos rios Tigre e Eufrates", "Sua capital é Bagdá"]
+  },
+  {
+    img: "https://flagcdn.com/w320/my.png",
+    resposta: "Malásia",
+    dicas: ["País do Sudeste Asiático famoso pelas Torres Petronas", "É dividido em duas regiões pelo Mar da China Meridional", "Sua capital é Kuala Lumpur"]
+  }
+];
+    let indice = 0;
+    let tentativas = 0;
+
+    const flag = document.getElementById("flag");
+    const dicasDiv = document.getElementById("dicas");
+    const resultado = document.getElementById("resultado");
+    const respostaInput = document.getElementById("resposta");
+
+    function carregarPergunta() {
+      flag.src = quiz[indice].img;
+      respostaInput.value = "";
+      dicasDiv.innerHTML = "";
+      resultado.textContent = "";
+      resultado.className = "";
+      tentativas = 0;
+    }
+
+    function verificarResposta() {
+      const resposta = respostaInput.value.trim();
+      if (resposta.toLowerCase() === quiz[indice].resposta.toLowerCase()) {
+        resultado.textContent = "Parabéns! Você acertou! 🎉";
+        resultado.className = "acerto";
+        setTimeout(() => {
+          indice++;
+          if (indice < quiz.length) {
+            carregarPergunta();
+          } else {
+            resultado.textContent = "Parabéns! Você concluiu todas as perguntas! 🎉";
+          }
+        }, 1500);
+      } else {
+        resultado.className = "erro";
+        if (tentativas < 3) {
+          resultado.textContent = "Ops! Resposta errada. Tente novamente. 😔";
+          dicasDiv.innerHTML += `<p> Dica: ${quiz[indice].dicas[tentativas]}</p>`;
+          tentativas++;
+        } else {
+          resultado.textContent = `O correto era: ${quiz[indice].resposta}`;
+          setTimeout(() => {
+            indice++;
+            if (indice < quiz.length) {
+              carregarPergunta();
+            } else {
+              resultado.textContent = "Fim do jogo!";
+            }
+          }, 2000);
+        }
+      }
+    }
+
+    carregarPergunta();
+  </script>
+
+</body>
+</html>
